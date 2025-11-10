@@ -19,7 +19,7 @@ libpath='../lib/'$fpctarget
 # Must we create the output directory?
 if [ ! -d $libpath ]; then
     echo 'creating directory: '$libpath
-    mkdir $libpath
+    mkdir -p $libpath
     echo ' '
 fi
 

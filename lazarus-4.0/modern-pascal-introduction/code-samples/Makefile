@@ -7,10 +7,22 @@ PROGRAM_UNIX_BINARIES:=$(PROGRAM_UNIX_BINARIES:.dpr=)
 PROGRAM_WINDOWS_BINARIES:=$(PROGRAM_SOURCES:.lpr=.exe)
 PROGRAM_WINDOWS_BINARIES:=$(PROGRAM_WINDOWS_BINARIES:.dpr=.exe)
 
+FPC = fpc
+#FPC = /home/ivan/fpc-3.2.0/bin/fpc
+
 .PHONY: all
+
 all:
-	$(foreach UNIT_NAME,$(UNIT_SOURCES),/home/ivan/fpc-3.2.0/bin/fpc $(UNIT_NAME) && ) true
-	$(foreach PROGRAM_NAME,$(PROGRAM_SOURCES),/home/ivan/fpc-3.2.0/bin/fpc $(PROGRAM_NAME) && ) true
+	$(foreach UNIT_NAME,$(UNIT_SOURCES),\
+		echo "==== $(FPC) $(UNIT_NAME) ==================================="; \
+		echo "$(FPC) $(UNIT_NAME)"; \
+		$(FPC) "$(UNIT_NAME)" || exit $$?; \
+	)
+	$(foreach PROGRAM_NAME,$(PROGRAM_SOURCES),\
+		echo "==== $(FPC) $(PROGRAM_NAME) ================================"; \
+		echo "$(FPC) $(PROGRAM_NAME)"; \
+		$(FPC) "$(PROGRAM_NAME)" || exit $$?; \
+	)
 
 # Delphi (dcc) command line options.
 # See https://github.com/castle-engine/castle-engine/blob/master/tools/build-tool/code/toolcompile.pas#L858

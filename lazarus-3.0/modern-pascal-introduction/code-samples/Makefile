@@ -9,8 +9,14 @@ PROGRAM_WINDOWS_BINARIES:=$(PROGRAM_WINDOWS_BINARIES:.dpr=.exe)
 
 .PHONY: all
 all:
-	$(foreach UNIT_NAME,$(UNIT_SOURCES),fpc $(UNIT_NAME) && ) true
-	$(foreach PROGRAM_NAME,$(PROGRAM_SOURCES),fpc $(PROGRAM_NAME) && ) true
+	$(foreach UNIT_NAME,$(UNIT_SOURCES),\
+		echo "fpc $(UNIT_NAME)"; \
+		fpc "$(UNIT_NAME)" || exit $$?; \
+	)
+	$(foreach PROGRAM_NAME,$(PROGRAM_SOURCES),\
+		echo "fpc $(PROGRAM_NAME)"; \
+		fpc "$(PROGRAM_NAME)" || exit $$?; \
+	)
 
 # Delphi (dcc) command line options.
 # See https://github.com/castle-engine/castle-engine/blob/master/tools/build-tool/code/toolcompile.pas#L858

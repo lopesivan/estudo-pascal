@@ -4,7 +4,7 @@ PROGRAM_BINARIES := $(PROGRAM_SOURCE:.lpi=)
 all: $(PROGRAM_BINARIES)
 
 $(PROGRAM_BINARIES):
-	/opt/lazarus/lazbuild $@.lpi
+	lazbuild $@.lpi
 
 run: $(PROGRAM_BINARIES)
 	./$(firstword $(PROGRAM_BINARIES))
